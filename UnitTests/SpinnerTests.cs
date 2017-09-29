@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpSpin;
+using Xunit;
 
 namespace UnitTests
-{
-    [TestClass]
+{    
     public class SpinnerTests
     {
         /// <summary>
@@ -15,28 +14,26 @@ namespace UnitTests
         /// <summary>
         ///Initialize() is called once during test execution before
         ///test methods in this test class are executed.
-        ///</summary>
-        [TestInitialize()]
-        public void Initialize()
+        ///</summary>        
+        public SpinnerTests()
         {
             //set fake randomizer
             Spinner.Randomizer = new FakeRandom();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void MissingTextParam()
         {
             //arrange
             string text = null;
 
             //act
-            var result = Spinner.Spin(text);
+            Assert.Throws<ArgumentException>(() =>Spinner.Spin(text));
 
             //assert - none should throw a ArgumentException
         }
 
-        [TestMethod]
+        [Fact]
         public void MissingStartBrace()
         {
             //arrange
@@ -47,10 +44,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should ignore when a single starting brace is missing.");
+            Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void MissingEndBrace()
         {
             //arrange
@@ -61,10 +58,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should ignore when a single ending brace is missing.");
+            Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void FlatPipeFirst()
         {
             //arrange
@@ -76,10 +73,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 1st pipe option.");
+            Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void FlatPipeSecond()
         {
             //arrange
@@ -91,10 +88,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 2nd pipe option.");
+            Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void FlatPipeOptionalFirst()
         {
             //arrange
@@ -106,10 +103,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 1st pipe option.");
+            Assert.Equal(expected, result);
         }
 
-        [TestMethod]
+        [Fact]
         public void FlatPipeOptionalSecond()
         {
             //arrange
@@ -120,11 +117,11 @@ namespace UnitTests
             //act
             var result = Spinner.Spin(text);
 
-            //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 2nd pipe option.");
+            //assert            
+            Assert.Equal(expected, result); // "Should choose the 2nd pipe option."
         }
 
-        [TestMethod]
+        [Fact]
         public void DoubleFlatPipeFirst()
         {
             //arrange
@@ -136,10 +133,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 1st of each pipe option.");
+            Assert.Equal(expected, result); // "Should choose the 1st of each pipe option.";
         }
 
-        [TestMethod]
+        [Fact]
         public void DoubleFlatPipeSecond()
         {
             //arrange
@@ -151,23 +148,22 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 2nd of each pipe option.");
+            Assert.Equal(expected, result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FormatException))]
+        [Fact]
         public void MissingNestedEndBrace()
         {
             //arrange
             var text = "{test {one|two }";
 
             //act
-            var result = Spinner.Spin(text);
+            Assert.Throws<FormatException>(() => Spinner.Spin(text));
 
             //assert - none should throw a FormatException
         }
 
-        [TestMethod]
+        [Fact]
         public void SimpleNestedPipeFirst()
         {
             //arrange
@@ -179,10 +175,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 1st pipe options.");
+            Assert.Equal(expected, result); // "Should choose the 1st pipe options."
         }
 
-        [TestMethod]
+        [Fact]
         public void SimpleNestedPipeSecond()
         {
             //arrange
@@ -194,10 +190,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 2nd pipe options.");
+            Assert.Equal(expected, result); // "Should choose the 2nd pipe options."
         }
 
-        [TestMethod]
+        [Fact]
         public void ComplexNestedPipeFirst()
         {
             //arrange
@@ -209,10 +205,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 1st pipe options.");
+            Assert.Equal(expected, result); // "Should choose the 1st pipe options."
         }
 
-        [TestMethod]
+        [Fact]
         public void ThirteenNestedPipeSecond()
         {
             //arrange
@@ -224,10 +220,10 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 2nd pipe options.");
+            Assert.Equal(expected, result); // "Should choose the 2nd pipe options."
         }
 
-        [TestMethod]
+        [Fact]
         public void ComplexNestedPipeSecond()
         {
             //arrange
@@ -239,23 +235,22 @@ namespace UnitTests
             var result = Spinner.Spin(text);
 
             //assert
-            Assert.AreEqual<string>(expected, result, "Should choose the 2nd pipe options.");
+            Assert.Equal(expected, result); // "Should choose the 2nd pipe options."
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void MissingPermutationsParam()
         {
             //arrange
             string text = null;
 
             //act
-            var result = Spinner.Permutations(text);
+            Assert.Throws<ArgumentException>(() => Spinner.Permutations(text));
 
             //assert - none should throw a ArgumentException
         }
 
-        [TestMethod]
+        [Fact]
         public void SingleFlatPipePermutations()
         {
             //arrange
@@ -267,10 +262,10 @@ namespace UnitTests
             var result = Spinner.Permutations(text);
 
             //assert
-            Assert.AreEqual<int>(expected, result, "Should be 2 permutations.");
+            Assert.Equal(expected, result); // "Should be 2 permutations."
         }
 
-        [TestMethod]
+        [Fact]
         public void DoubleFlatPipePermutations()
         {
             //arrange
@@ -282,10 +277,10 @@ namespace UnitTests
             var result = Spinner.Permutations(text);
 
             //assert
-            Assert.AreEqual<int>(expected, result, "Should be 4 permutations.");
+            Assert.Equal(expected, result); // "Should be 4 permutations."
         }
 
-        [TestMethod]
+        [Fact]
         public void SimpleNestedPipePermutations()
         {
             //arrange
@@ -297,10 +292,10 @@ namespace UnitTests
             var result = Spinner.Permutations(text);
 
             //assert
-            Assert.AreEqual<int>(expected, result, "Should be 4 permutations.");
+            Assert.Equal(expected, result); // "Should be 4 permutations."
         }
         
-        [TestMethod]
+        [Fact]
         public void ThirteenNestedPipePermutations()
         {
             //arrange
@@ -312,10 +307,10 @@ namespace UnitTests
             var result = Spinner.Permutations(text);
 
             //assert
-            Assert.AreEqual<int>(expected, result, "Should be 8,192 permutations.");
+            Assert.Equal(expected, result); // "Should be 8,192 permutations.");
         }
 
-        [TestMethod]
+        [Fact]
         public void ComplexNestedPipePermutations()
         {
             //arrange
@@ -327,7 +322,7 @@ namespace UnitTests
             var result = Spinner.Permutations(text);
 
             //assert
-            Assert.AreEqual<int>(expected, result, "Should be 559,872 permutations.");
+            Assert.Equal(expected, result); // "Should be 559,872 permutations.");
         }
 
         #region Helpers

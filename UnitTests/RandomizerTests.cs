@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpSpin;
+using Xunit;
 
 namespace UnitTests
-{
-    [TestClass]
+{    
     public class RandomizerTests
     {
         /// <summary>
@@ -16,27 +15,25 @@ namespace UnitTests
         ///Initialize() is called once during test execution before
         ///test methods in this test class are executed.
         ///</summary>
-        [TestInitialize()]
-        public void Initialize()
+        
+        public RandomizerTests()
         {
             //init spinner
             randomizer = new RealRandom();
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact]
         public void InvalidMaxParam()
         {
             //arrange
             int max = -1;
 
             //act
-            var result = randomizer.Generate(max);
 
-            //assert - none should throw a ArgumentOutOfRangeException
+            Assert.Throws<ArgumentOutOfRangeException>(() => randomizer.Generate(max));
         }
 
-        [TestMethod]
+        [Fact]
         public void GenerateInt()
         {
             //arrange
@@ -46,8 +43,8 @@ namespace UnitTests
             var result = randomizer.Generate(max);
 
             //assert
-            Assert.IsInstanceOfType(result, typeof(int), "Should generate random int");
-            Assert.IsTrue(result < max, "Should be less than the max");
+            Assert.IsType<int>(result);
+            Assert.True(result < max, "Should be less than the max");
         }
     }
 }
