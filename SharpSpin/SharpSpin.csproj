@@ -7,6 +7,7 @@
     <Description>C# spinning syntax (spintax) parser</Description>
     <RepositoryType></RepositoryType>
     <PackageTags>spintax spinning syntax</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

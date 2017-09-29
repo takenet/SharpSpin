@@ -20,6 +20,11 @@ namespace SharpSpin
         private const char CLOSE_BRACE = '}';
         private const char DELIMITER = '|';
 
+        /// <summary>
+        /// Takes a string of text and recursivly spins it returning the output as a string.
+        /// </summary>
+        /// <param name="content">Text string to spin.</param>
+        /// <returns></returns>
         public static string Spin(string content)
         {
             //quick data sanity check
