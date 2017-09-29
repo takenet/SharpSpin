@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>daniellmb,takenet</Authors>
+    <RepositoryUrl>https://github.com/takenet/SharpSpin</RepositoryUrl>
+    <Description>C# spinning syntax (spintax) parser</Description>
+    <RepositoryType></RepositoryType>
+    <PackageTags>spintax spinning syntax</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
