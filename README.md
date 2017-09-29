@@ -1,6 +1,8 @@
 Recursive `{Content|Text|Article}` Spinner Algorithm
 =========
 
+<a href="https://www.nuget.org/packages/SharpSpin/" rel="SharpSpin">![NuGet](https://img.shields.io/nuget/v/SharpSpin.svg)</a>
+
 Effortlessly create variations of your text, either for possible SEO benefit or to simply keep things fresh for your users by reducing content redundancy.
 
 > So this SEO copywriter walks into a `{bar | pub}` for a `{drink | beer | cocktail}`.
